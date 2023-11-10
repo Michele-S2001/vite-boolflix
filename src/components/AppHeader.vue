@@ -1,9 +1,17 @@
 <script>
+import store from '../store.js';
 
 export default {
   data() {
     return {
       componentName: 'AppHeader',
+      store,
+    }
+  },
+
+  methods: {
+    search() {
+      this.$emit('performSearch');
     }
   }
 }
@@ -17,8 +25,15 @@ export default {
       <nav class="navbar">
         <h1 class="logo">Boolflix</h1>
         <div class="input-field">
-          <input class="input" type="text" placeholder="cerca un film nel catalogo">
-          <button class="cta-search">Cerca</button>
+          <input 
+            class="input" 
+            type="text" 
+            v-model="store.searchText"
+            @keyup.enter="search"
+            placeholder="cerca un film nel catalogo">
+          <button @click="search" class="cta-search">
+            Cerca
+          </button>
         </div>
       </nav>
     </div>

@@ -1,4 +1,4 @@
-
+@use './partial/variables' as *;
 * {
   margin: 0;
   padding: 0;
@@ -6,7 +6,8 @@
 }
 
 body {
-  font-family: Arial, Helvetica, sans-serif
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: $darkGrey;
 }
 
 img {

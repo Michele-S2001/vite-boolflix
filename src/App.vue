@@ -16,16 +16,27 @@ export default {
     }
   },
 
-  created() {
-    console.log(store);
-  }
+  methods: {
+    fetchFilms() {
+      axios
+        .get('https://api.themoviedb.org/3/search/movie', {
+          params: {
+            api_key: store.API_KEY,
+            query: store.searchText
+          }
+        }).then((par) => {
+          console.log(par.data.results);
+          store.movies = par.data.results;
+        })
+    }
+  },
 }
 
 </script>
 
 <template>
   <!-- AppHeader + AppMain -->
-  <AppHeader/>
+  <AppHeader @performSearch="fetchFilms"/>
   <AppMain/>
 </template>
 
