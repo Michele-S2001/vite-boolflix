@@ -25,7 +25,8 @@ export default {
 
 <template>
   <!-- AppHeader + AppMain -->
-  <h1>{{ rootComponent }}</h1>
+  <AppHeader/>
+  <AppMain/>
 </template>
 
 <style lang="scss">

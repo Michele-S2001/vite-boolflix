@@ -1,0 +1,5 @@
+@mixin flexSetUp($mainPositioning) {
+  display: flex;
+  justify-content: $mainPositioning;
+  align-items: center;
+}
