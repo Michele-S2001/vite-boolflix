@@ -27,6 +27,7 @@ export default {
         <h1 class="logo">Boolflix</h1>
         <div class="input-field">
           <input 
+            autofocus
             class="input" 
             type="text" 
             v-model="store.searchText"
