@@ -1,17 +1,24 @@
 <script>
+import store from '../store';
 
 export default {
 
   data() {
     return {
-      componentName: 'AppCard',
+      componentName: 'AppCard'
     }
   },
 
   props: {
-    film: {
+    item: {
       type: Object,
       required: true
+    }
+  },
+
+  computed: {
+    flagPath() {
+      return store.flags[this.item.original_language]
     }
   }
 }
@@ -23,16 +30,17 @@ export default {
   <div class="card">
     <ul class="card__movie-details">
       <li class="movie-detail">
-        <span >Titolo:</span> {{ film.title }}
+        <span>Titolo:</span> {{ item.title }}
       </li>
       <li class="movie-detail">
-        <span>Titolo originale:</span> {{ film.original_title }}
+        <span>Titolo originale:</span> {{ item.original_title }}
       </li>
       <li class="movie-detail">
-        <span>Lingua:</span> {{ film.original_language }}
+        <img class="flag" v-if="flagPath" :src="flagPath" alt="country flag">
+        <p v-else>Lingua: {{ item.original_language }}</p> 
       </li>
       <li class="movie-detail">
-        <span>Voto:</span> {{ film.vote_average }}
+        <span>Voto:</span> {{ item.vote_average }}
       </li>
     </ul>
   </div>
@@ -57,6 +65,10 @@ export default {
           font-weight: bold;
         }
       }
+    }
+
+    .flag {
+      height: 20px;
     }
   }
 

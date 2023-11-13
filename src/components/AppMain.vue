@@ -27,7 +27,7 @@ export default {
   <main class="main-content">
     <div class="container">
       <section class="searched-films">
-        <AppCard v-for="movie in movies" :film="movie"/>
+        <AppCard v-for="movie in movies" :item="movie"/>
       </section>
     </div>
   </main>
