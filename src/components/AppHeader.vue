@@ -12,6 +12,7 @@ export default {
   methods: {
     search() {
       this.$emit('performSearch');
+      store.searchText = '';
     }
   }
 }
@@ -46,7 +47,7 @@ export default {
   @use '../styles/partial/variables' as *;
 
   .page-header {
-    background-color: $black;
+    background-color: rgba($black, $alpha: 0.6)
   }
   .navbar {
     @include flexSetUp(space-between);
@@ -61,18 +62,29 @@ export default {
 
     .input-field {
       @include flexSetUp(center);
-      gap: 10px;
+      gap: 7px;
 
       .input {
         border: none;
         padding: 0 10px;
         line-height: 30px;
+        border-radius: 10px;
       }
 
       .cta-search {
         line-height: 30px;
         padding: 0 5px;
-        background-color: $white;
+        color: $white;
+        background-color: transparent;
+        cursor: pointer;
+        font-weight: bold;
+        border-radius: 5px;
+        transition: 0.2s ease-in-out;
+
+        &:hover {
+          background-color: $white;
+          color: $black;
+        }
       }
     }
   }

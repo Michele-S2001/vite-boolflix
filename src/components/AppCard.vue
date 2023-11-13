@@ -32,6 +32,9 @@ export default {
 <template>
   <!-- film or tv card -->
   <div class="card">
+    <div class="card__thumbnail">
+      <img :src="`https://image.tmdb.org/t/p/w300${this.item.poster_path}`" alt="Poster not found">
+    </div>
     <ul class="card__item-details">
       <li class="item-detail">
         <span>Titolo:</span> {{ item.title || item.name }}
@@ -44,42 +47,66 @@ export default {
         <p v-else>Lingua: {{ item.original_language }}</p> 
       </li>
       <li class="item-detail">
+        <span>Voto: </span>
         <font-awesome-icon
           class="vote-stars"
           :class="{starCounted: i < getVote && getVote > 0}"
           v-for="(star, i) in maxStarNum"
           icon="star" />
       </li>
+      <!-- <li class="item-detail">
+        <p class="overview">
+          {{ item.overview }}
+        </p>
+      </li> -->
       <li class="item-detail">
         <img 
+          class="backdrop-img"
           :src="`https://image.tmdb.org/t/p/w300${this.item.backdrop_path}`"
           alt="thumbnail not found"
         >
       </li>
     </ul>
-
-    
   </div>
 
 </template>
 
 <style lang="scss">
 @use '../styles/partial/variables' as *;
-  /* style */
+  
   .card {
-    margin-bottom: 25px;
-    padding: 10px;
-    flex: 0 0 180px;
-    border: 2px solid $lightGrey;
+    flex: 0 0 210px;
     color: $white;
     font-size: 16px;
+    position: relative;
+    font-size: 14px;
+
+    &__thumbnail {
+      position: relative;
+    }
 
     &__item-details {
+      position: absolute;
+      opacity: 0;
+      transform: translateY(-20px);
+      padding: 10px;
+      background-color: rgba($black, $alpha: 0.65);
+      inset: 0;
+      transition: 0.2s ease-in;
       .item-detail  {
         margin-bottom: 10px;
         & span {
           font-weight: bold;
         }
+
+        & .backdrop-img {
+          filter: drop-shadow(2px 2px 10px $white);
+        }
+      }
+
+      &:hover {
+        opacity: 1;
+        transform: translateX(0);
       }
     }
 

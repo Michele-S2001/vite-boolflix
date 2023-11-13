@@ -46,9 +46,8 @@ export default {
 
     .searched-films {
       display: flex;
-      gap: 10px;
+      gap: 7px;
       overflow: auto;
-      min-height: 300px;
     }
   }
 </style>
