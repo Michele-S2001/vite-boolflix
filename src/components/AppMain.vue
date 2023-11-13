@@ -16,6 +16,10 @@ export default {
   computed: {
     movies() {
       return store.movies
+    },
+
+    series() {
+      return store.series
     }
   }
 }
@@ -28,6 +32,7 @@ export default {
     <div class="container">
       <section class="searched-films">
         <AppCard v-for="movie in movies" :item="movie"/>
+        <AppCard v-for="show in series" :item="show"/>
       </section>
     </div>
   </main>

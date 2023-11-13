@@ -19,7 +19,7 @@ export default {
   computed: {
     flagPath() {
       return store.flags[this.item.original_language]
-    }
+    },
   }
 }
 
@@ -30,10 +30,10 @@ export default {
   <div class="card">
     <ul class="card__movie-details">
       <li class="movie-detail">
-        <span>Titolo:</span> {{ item.title }}
+        <span>Titolo:</span> {{ item.title || item.name }}
       </li>
       <li class="movie-detail">
-        <span>Titolo originale:</span> {{ item.original_title }}
+        <span>Titolo originale:</span> {{ item.original_title || item.original_name }}
       </li>
       <li class="movie-detail">
         <img class="flag" v-if="flagPath" :src="flagPath" alt="country flag">
