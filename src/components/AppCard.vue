@@ -6,7 +6,7 @@ export default {
   data() {
     return {
       componentName: 'AppCard',
-      itemThumbnail: ''
+      maxStarNum: 5
     }
   },
 
@@ -17,18 +17,13 @@ export default {
     }
   },
 
-  methods: {
-    fullThumbURL() {
-      // this.itemThumbnail = "`https://image.tmdb.org/t/p/w342${this.item.backdrop_path}`";
-      this.itemThumbnail = "ciao"
-      return this.itemThumbnail;
-    }
-  },
-
   computed: {
     flagPath() {
-      return store.flags[this.item.original_language]
+      return store.flags[this.item.original_language];
     },
+    getVote() {
+      return Math.ceil(this.item.vote_average / 2);
+    }
   },
 }
 
@@ -49,12 +44,16 @@ export default {
         <p v-else>Lingua: {{ item.original_language }}</p> 
       </li>
       <li class="item-detail">
-        <span>Voto:</span> {{ item.vote_average }}
+        <font-awesome-icon
+          class="vote-stars"
+          :class="{starCounted: i < getVote && getVote > 0}"
+          v-for="(star, i) in maxStarNum"
+          icon="star" />
       </li>
       <li class="item-detail">
         <img 
           :src="`https://image.tmdb.org/t/p/w300${this.item.backdrop_path}`"
-          alt="thumbnail"
+          alt="thumbnail not found"
         >
       </li>
     </ul>
@@ -86,6 +85,12 @@ export default {
 
     .flag {
       height: 20px;
+    }
+
+    .vote-stars {
+      &.starCounted {
+        color: $yellow;
+      }
     }
   }
 
