@@ -22,7 +22,8 @@ export default {
         .get('https://api.themoviedb.org/3/search/movie', {
           params: {
             api_key: store.API_KEY,
-            query: store.searchText
+            query: store.searchText,
+            language: 'it-IT'
           }
         }).then((par) => {
           console.log(par.data.results);
