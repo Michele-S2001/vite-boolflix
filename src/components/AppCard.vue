@@ -23,6 +23,9 @@ export default {
     },
     getVote() {
       return Math.ceil(this.item.vote_average / 2);
+    },
+    imgUrl() {
+      return `https://image.tmdb.org/t/p/w300${this.item.poster_path}`;
     }
   },
 }
@@ -33,38 +36,37 @@ export default {
   <!-- film or tv card -->
   <div class="card">
     <div class="card__thumbnail">
-      <img :src="`https://image.tmdb.org/t/p/w300${this.item.poster_path}`" alt="Poster not found">
+      <img :src="imgUrl" alt="Poster not found">
     </div>
     <ul class="card__item-details">
+      <!-- title -->
       <li class="item-detail">
-        <span>Titolo:</span> {{ item.title || item.name }}
+        <span>Titolo:</span> 
+        {{ item.title ?? item.name }}
       </li>
+      <!-- original title -->
       <li class="item-detail">
-        <span>Titolo originale:</span> {{ item.original_title || item.original_name }}
+        <span>Titolo originale:</span> 
+        {{ item.original_title ?? item.original_name }}
       </li>
+      <!-- linguage or flag -->
       <li class="item-detail">
         <img class="flag" v-if="flagPath" :src="flagPath" alt="country flag">
         <p v-else>Lingua: {{ item.original_language }}</p> 
       </li>
+      <!-- stars vote -->
       <li class="item-detail">
         <span>Voto: </span>
         <font-awesome-icon
           class="vote-stars"
-          :class="{starCounted: i < getVote && getVote > 0}"
-          v-for="(star, i) in maxStarNum"
+          :class="{starCounted: i <= getVote}"
+          v-for="(i) in maxStarNum"
           icon="star" />
       </li>
-      <!-- <li class="item-detail">
-        <p class="overview">
-          {{ item.overview }}
-        </p>
-      </li> -->
+      <!-- info icon -->
       <li class="item-detail">
-        <img 
-          class="backdrop-img"
-          :src="`https://image.tmdb.org/t/p/w300${this.item.backdrop_path}`"
-          alt="thumbnail not found"
-        >
+        Info:
+        <font-awesome-icon @click="$emit('showDescription', item)" icon="circle-info" class="info"/>
       </li>
     </ul>
   </div>
@@ -80,6 +82,7 @@ export default {
     font-size: 16px;
     position: relative;
     font-size: 14px;
+    user-select: none;
 
     &__thumbnail {
       position: relative;
@@ -95,12 +98,16 @@ export default {
       transition: 0.2s ease-in;
       .item-detail  {
         margin-bottom: 10px;
-        & span {
+        span {
           font-weight: bold;
         }
 
-        & .backdrop-img {
+        .backdrop-img {
           filter: drop-shadow(2px 2px 10px $white);
+        }
+
+        .info {
+          cursor: pointer;
         }
       }
 
