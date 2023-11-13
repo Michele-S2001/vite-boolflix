@@ -17,7 +17,7 @@ export default {
   },
 
   methods: {
-    fetchFilms() {
+    fetchResults() {
       axios
         .get('https://api.themoviedb.org/3/search/movie', {
           params: {
@@ -26,8 +26,19 @@ export default {
             language: 'it-IT'
           }
         }).then((par) => {
-          console.log(par.data.results);
+          console.log("film: ", par.data.results);
           store.movies = par.data.results;
+        });
+      axios
+        .get('https://api.themoviedb.org/3/search/tv', {
+          params: {
+            api_key: store.API_KEY,
+            query: store.searchText,
+            language: 'it-IT'
+          }
+        }).then((par) => {
+          console.log("serie tv: ", par.data.results);
+          store.series = par.data.results;
         })
     }
   },
@@ -37,7 +48,7 @@ export default {
 
 <template>
   <!-- AppHeader + AppMain -->
-  <AppHeader @performSearch="fetchFilms"/>
+  <AppHeader @performSearch="fetchResults"/>
   <AppMain/>
 </template>
 
