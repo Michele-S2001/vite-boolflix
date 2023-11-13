@@ -25,7 +25,11 @@ export default {
       return Math.ceil(this.item.vote_average / 2);
     },
     imgUrl() {
-      return `https://image.tmdb.org/t/p/w300${this.item.poster_path}`;
+      if(!this.item.poster_path) {
+        return '/img/imgNotFound.png'
+      } else {
+        return `https://image.tmdb.org/t/p/w300${this.item.poster_path}`;
+      }
     }
   },
 }
@@ -108,6 +112,7 @@ export default {
 
         .info {
           cursor: pointer;
+          height: 16px;
         }
       }
 

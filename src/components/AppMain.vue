@@ -33,6 +33,14 @@ export default {
 
     series() {
       return store.series
+    },
+
+    modalImg() {
+      if(!this.currentItem.backdrop_path) {
+        return '/img/noImg.png'
+      } else {
+        return `https://image.tmdb.org/t/p/w300${this.currentItem.backdrop_path}`
+      }
     }
   }
 }
@@ -56,7 +64,7 @@ export default {
         <h3>Overview</h3>
         <font-awesome-icon @click.stop="closeModal" icon="x" class="close"/>
       </div>
-      <img class="thumbnail" :src="`https://image.tmdb.org/t/p/w300${currentItem.backdrop_path}`">
+      <img class="thumbnail" :src="modalImg">
       <p class="description">{{ currentItem.overview }}</p>
     </div>
   </div>
@@ -110,6 +118,7 @@ export default {
       .thumbnail {
         margin: 40px auto;
         border-radius: 15px;
+        max-width: 300px;
       }
     }
   }
