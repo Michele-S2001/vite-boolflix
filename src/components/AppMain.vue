@@ -58,7 +58,7 @@ export default {
     </div>
   </main>
 
-  <div v-if="open" class="modal" @click="closeModal">
+  <div v-if="open" class="modal">
     <div class="modal__text-area">
       <div class="modal-title">
         <h3>Overview</h3>
