@@ -1,12 +1,14 @@
 <script>
 import store from '../store';
+import axios from 'axios';
 
 export default {
 
   data() {
     return {
       componentName: 'AppCard',
-      maxStarNum: 5
+      maxStarNum: 5,
+      cast: []
     }
   },
 
@@ -14,6 +16,23 @@ export default {
     item: {
       type: Object,
       required: true
+    },
+    category: {
+      type: String,
+      required: true
+    }
+  },
+
+  methods: {
+    fetchCast() {
+      axios
+        .get(`https://api.themoviedb.org/3/${this.category}/${this.item.id}/credits`,{
+          params: {
+            api_key: store.API_KEY,
+          }
+        }).then((res) => {
+          this.cast = res.data.cast
+        })
     }
   },
 
@@ -30,8 +49,15 @@ export default {
       } else {
         return `https://image.tmdb.org/t/p/w300${this.item.poster_path}`;
       }
+    },
+    firstFiveActors() {
+      return this.cast.slice(0, 5)
     }
   },
+
+  created() {
+    this.fetchCast()
+  }
 }
 
 </script>
@@ -55,7 +81,7 @@ export default {
       </li>
       <!-- linguage or flag -->
       <li class="item-detail">
-        <img class="flag" v-if="flagPath" :src="flagPath" alt="country flag">
+        <img @click="fetchCast" class="flag" v-if="flagPath" :src="flagPath" alt="country flag">
         <p v-else>Lingua: {{ item.original_language }}</p> 
       </li>
       <!-- stars vote -->
@@ -66,6 +92,12 @@ export default {
           :class="{starCounted: i <= getVote}"
           v-for="(i) in maxStarNum"
           icon="star" />
+      </li>
+      <li>
+        <ul class="cast">
+          <li v-for="actor in firstFiveActors">{{ actor.name }}</li>
+        </ul>
+        <span>. . .</span>
       </li>
       <!-- info icon -->
       <li class="item-detail">
@@ -83,7 +115,6 @@ export default {
   .card {
     flex: 0 0 210px;
     color: $white;
-    font-size: 16px;
     position: relative;
     font-size: 14px;
     user-select: none;

@@ -54,13 +54,23 @@ export default {
       <section class="films" v-if="movies.length > 0">
         <h2>Films</h2>
         <div class="searched-results">
-          <AppCard @showDescription="showModal" v-for="movie in movies" :item="movie"/>
+          <AppCard @showDescription="showModal"
+           v-for="movie in movies"
+           :key="movie.id"
+           :item="movie"
+           :category="'movie'"
+           />
         </div>
       </section>
       <section class="series" v-if="series.length > 0">
         <h2>TV Series</h2>
         <div class="searched-results">
-          <AppCard @showDescription="showModal" v-for="show in series" :item="show"/>
+          <AppCard @showDescription="showModal" 
+          v-for="show in series"
+          :key="show.id"
+          :item="show"
+          :category="'tv'"
+          />
         </div>
       </section>
     </div>
