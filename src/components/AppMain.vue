@@ -100,7 +100,7 @@ export default {
   }
 
   .modal {
-    position: absolute;
+    position: fixed;
     z-index: 99;
     inset: 0;
     backdrop-filter: blur(10px);
