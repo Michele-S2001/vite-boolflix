@@ -26,7 +26,6 @@ export default {
             language: 'it-IT'
           }
         }).then((par) => {
-          console.log(par.data.results);
           store.movies = par.data.results;
         });
       axios
@@ -37,7 +36,6 @@ export default {
             language: 'it-IT'
           }
         }).then((par) => {
-          console.log(par.data.results);
           store.series = par.data.results;
         })
     }
