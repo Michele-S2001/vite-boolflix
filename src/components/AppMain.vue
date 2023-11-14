@@ -51,9 +51,17 @@ export default {
   <!-- cards -->
   <main class="main-content">
     <div class="container">
-      <section class="searched-films">
-        <AppCard @showDescription="showModal" v-for="movie in movies" :item="movie"/>
-        <AppCard @showDescription="showModal" v-for="show in series" :item="show"/>
+      <section class="films" v-if="movies.length > 0">
+        <h2>Films</h2>
+        <div class="searched-results">
+          <AppCard @showDescription="showModal" v-for="movie in movies" :item="movie"/>
+        </div>
+      </section>
+      <section class="series" v-if="series.length > 0">
+        <h2>TV Series</h2>
+        <div class="searched-results">
+          <AppCard @showDescription="showModal" v-for="show in series" :item="show"/>
+        </div>
       </section>
     </div>
   </main>
@@ -77,10 +85,17 @@ export default {
   .main-content {
     padding: 30px 10px 0 10px;
 
-    .searched-films {
+    h2 {
+      font-size: 34px;
+      color: $white;
+      cursor: default;
+    }
+
+    .searched-results {
       display: flex;
       gap: 7px;
       overflow: auto;
+      margin-bottom: 30px;
     }
   }
 
